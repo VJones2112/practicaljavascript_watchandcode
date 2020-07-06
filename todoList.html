@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<title>Practical JavaScript</title>
+<meta charset="UTF-8">
+<meta name="description" content="This is what Google will show.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href=>
+<link rel="stylesheet" href=>
+
+</head>
+
+<body>
+
+
+<script>
+let todoList = { 
+  // when setting value of property as below, don't end with a semicolon.
+  todos: ['item 1', 'item 2', 'item 3'],
+  displayTodos: function() {
+    console.log('My To-Dos:', this.todos);
+  },
+  //adding a todo item into the list and displaying it.
+  addTodo: function(todo) {
+    this.todos.push(todo);
+    this.displayTodos();
+  },
+  changeTodo: function(position, newValue) {
+    this.todos[position] = newValue;
+    this.displayTodos();
+  },
+  deleteTodo: function(position) {
+    this.todos.splice(position, 1);
+    this.displayTodos();
+  }
+};
+
+
+</script>
+</body>
+
+</html>
