@@ -14,7 +14,14 @@
 </head>
 
 <body>
+<h1>To-Do List</h1>
 
+<button id="displayTodosButton">Display To-Dos</button>
+<button id="toggleAllButton">Toggle All</button>
+
+<!-- <h2>Subsection Title</h2> -->
+<!-- <h3>Subsection Title</h3> -->
+<!-- <p>For Text</p> -->
 
 <script>
 let todoList = { 
@@ -80,9 +87,20 @@ let todoList = {
     this.displayTodos();
   }
 };
+// The code below gives us access to the display todos button.
+let displayTodosButton = document.getElementById('displayTodosButton');
 
-
+// The code eblow runs displayTodos method when user clicks displayTodosButton.
+displayTodosButton.addEventListener('click', function() {
+  todoList.displayTodos();
+})
+// The code below does what above did but for the toggleAllButton
+let toggleAllButton = document.getElementById('toggleAllButton');
+toggleAllButton.addEventListener('click', function() {
+  todoList.toggleAll();
+});
 </script>
+
 </body>
 
 </html>
