@@ -4,102 +4,168 @@
 
 <head>
 
-<title>Practical JavaScript</title>
-<meta charset="UTF-8">
-<meta name="description" content="This is what Google will show.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href=>
-<link rel="stylesheet" href=>
+    <title>Practical JavaScript</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="This is what Google will show.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href=>
+    <link rel="stylesheet" href=>
 
 </head>
 
 <body>
-<h1>To-Do List</h1>
+    <h1>To-Do List</h1>
 
-<button id="displayTodosButton">Display To-Dos</button>
-<button id="toggleAllButton">Toggle All</button>
+    <!-- <button id="displayTodosButton">Display To-Dos</button>
+<button id="toggleAllButton">Toggle All</button> -->
+    <div>
+        <button onclick="handlers.displayTodos()">Display To-Dos</button>
+        <button onclick="handlers.toggleAll()">Toggle All</button>
+    </div>
+    <div>
+        <button onclick="handlers.addTodo()">Add</button>
+        <input id="addTodoTextInput" type="text">
+    </div>
 
-<!-- <h2>Subsection Title</h2> -->
-<!-- <h3>Subsection Title</h3> -->
-<!-- <p>For Text</p> -->
+    <div>
+        <button onclick="handlers.changeTodo()">Change To-Do</button>
+        <input id="changeTodoPositionInput" type="number">
+        <input id="changeTodoTextInput" type="text">
+    </div>
 
-<script>
-let todoList = { 
-  // when setting value of property as below, don't end with a semicolon.
-  todos: [],
-  displayTodos: function() {
-    if (this.todos.length===0) {
-      console.log('Your to-do list is empty!');
-    } else {
-      console.log('My To-Dos:');
-      for(let i=0; i <this.todos.length; i++) {
-        if (this.todos[i].completed === true) {
-          console.log('(x)', this.todos[i].todoText);
-        } else {
-          console.log('( )', this.todos[i].todoText);
-        }
-    }
-    }
-  },
-  //adding a todo item into the list and displaying it.
-  addTodo: function(todoText) {
-    this.todos.push({
-      // First todoText is name of property and 2nd is the parameter w/in function.
-      todoText: todoText,
-      completed: false
-    });
-    this.displayTodos();
-  },
-  changeTodo: function(position, todoText) {
-    // Below we are changing the todoText based on a position by passing in todoText.
-    this.todos[position].todoText = todoText;
-    this.displayTodos();
-  },
-  deleteTodo: function(position) {
-    this.todos.splice(position, 1);
-    this.displayTodos();
-  },
-  toggleCompleted: function(position) {
-    let todo = this.todos[position];
-    todo.completed = !todo.completed;
-    this.displayTodos();
-  },
-  toggleAll: function() {
-    let totalTodos = this.todos.length;
-    let completedTodos = 0;
-    // Below get number of completed todos.
-      for (let i = 0; i < totalTodos; i++) {
-        if (this.todos[i].completed === true) {
-          completedTodos++;
-        }
-      }
-      // If everything is true, make everything false.
-    if (completedTodos === totalTodos) {
-      for (let i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = false;
-      }
-    //Otherwise make everything true.
-  } else {
-    for (let i = 0; i < totalTodos; i++) {
-      this.todos[i].completed = true;
-    }
-  }
-    this.displayTodos();
-  }
-};
-// The code below gives us access to the display todos button.
-let displayTodosButton = document.getElementById('displayTodosButton');
+    <div>
+        <button onclick="handlers.deleteTodo()">Delete</button>
+        <input id="deleteTodoPositionInput" type="number">
+    </div>
 
-// The code eblow runs displayTodos method when user clicks displayTodosButton.
-displayTodosButton.addEventListener('click', function() {
-  todoList.displayTodos();
-})
-// The code below does what above did but for the toggleAllButton
-let toggleAllButton = document.getElementById('toggleAllButton');
-toggleAllButton.addEventListener('click', function() {
-  todoList.toggleAll();
-});
-</script>
+    <div>
+        <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+        <input id="toggleCompletedPositionInput" type="number">
+    </div>
+
+
+    <!-- <h2>Subsection Title</h2> -->
+    <!-- <h3>Subsection Title</h3> -->
+    <!-- <p>For Text</p> -->
+
+    <script>
+        let todoList = {
+            // when setting value of property as below, don't end with a semicolon.
+            todos: [],
+            displayTodos: function() {
+                // debugger;
+                if (this.todos.length === 0) {
+                    console.log('Your to-do list is empty!');
+                } else {
+                    console.log('My To-Dos:');
+                    for (let i = 0; i < this.todos.length; i++) {
+                        if (this.todos[i].completed === true) {
+                            console.log('(x)', this.todos[i].todoText);
+                        } else {
+                            console.log('( )', this.todos[i].todoText);
+                        }
+                    }
+                }
+            },
+            //adding a todo item into the list and displaying it.
+            addTodo: function(todoText) {
+                // debugger;
+                this.todos.push({
+                    // First todoText is name of property and 2nd is the parameter w/in function.
+                    todoText: todoText,
+                    completed: false
+                });
+                this.displayTodos();
+            },
+            changeTodo: function(position, todoText) {
+                // debugger;
+                // Below we are changing the todoText based on a position by passing in todoText.
+                this.todos[position].todoText = todoText;
+                this.displayTodos();
+            },
+            deleteTodo: function(position) {
+                // debugger;
+                this.todos.splice(position, 1);
+                this.displayTodos();
+            },
+            toggleCompleted: function(position) {
+                // debugger;
+                let todo = this.todos[position];
+                todo.completed = !todo.completed;
+                this.displayTodos();
+            },
+            toggleAll: function() {
+                // debugger;
+                let totalTodos = this.todos.length;
+                let completedTodos = 0;
+                // Below get number of completed todos.
+                for (let i = 0; i < totalTodos; i++) {
+                    if (this.todos[i].completed === true) {
+                        completedTodos++;
+                    }
+                }
+                // If everything is true, make everything false.
+                if (completedTodos === totalTodos) {
+                    for (let i = 0; i < totalTodos; i++) {
+                        this.todos[i].completed = false;
+                    }
+                    //Otherwise make everything true.
+                } else {
+                    for (let i = 0; i < totalTodos; i++) {
+                        this.todos[i].completed = true;
+                    }
+                }
+                this.displayTodos();
+            }
+        };
+        // The code below gives us access to the display todos button.
+        // let displayTodosButton = document.getElementById('displayTodosButton');
+
+        // The code eblow runs displayTodos method when user clicks displayTodosButton.
+        // displayTodosButton.addEventListener('click', function() {
+        //   todoList.displayTodos();
+        // })
+        // The code below does what above did but for the toggleAllButton
+        // let toggleAllButton = document.getElementById('toggleAllButton');
+        // toggleAllButton.addEventListener('click', function() {
+        //   todoList.toggleAll();
+        // });
+
+        let handlers = {
+            displayTodos: function() {
+                todoList.displayTodos();
+            },
+
+            addTodo: function() {
+                let addTodoTextInput = document.getElementById('addTodoTextInput');
+                todoList.addTodo(addTodoTextInput.value);
+                addTodoTextInput.value = '';
+                //The line above is to clear the input after you type something in rather than having that text stay there.
+            },
+            changeTodo: function() {
+                let changeTodoPositionInput = document.getElementById('changeTodoPositionInput');
+                let changeTodoTextInput = document.getElementById('changeTodoTextInput');
+                todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
+                //Above if we had used .value it would return a string, not number.
+                changeTodoTextInput.value = '';
+                changeTodoPositionInput = '';
+            },
+            deleteTodo: function() {
+                let deleteTodoPositionInput = document.getElementById('deleteTodoPositionInput');
+                todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
+                deleteTodoPositionInput.value = '';
+            },
+            toggleCompleted: function() {
+                let toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
+                todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
+                toggleCompletedPositionInput.value = '';
+            },
+            toggleAll: function() {
+                todoList.toggleAll();
+            }
+        };
+
+    </script>
 
 </body>
 
