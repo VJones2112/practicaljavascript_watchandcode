@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href=>
     <link rel="stylesheet" href=>
-
+    <!-- <script src="/script.js"></script> -->
 </head>
 
 <body>
@@ -18,10 +18,12 @@
 
     <!-- <button id="displayTodosButton">Display To-Dos</button>
 <button id="toggleAllButton">Toggle All</button> -->
-    <div>
+
+<!-- We deleted the Display Todos button when we escaped the console! -->
+    <!-- <div>
         <button onclick="handlers.displayTodos()">Display To-Dos</button>
         <button onclick="handlers.toggleAll()">Toggle All</button>
-    </div>
+    </div> -->
     <div>
         <button onclick="handlers.addTodo()">Add</button>
         <input id="addTodoTextInput" type="text">
@@ -43,6 +45,9 @@
         <input id="toggleCompletedPositionInput" type="number">
     </div>
 
+    <ul>
+    </ul>
+
 
     <!-- <h2>Subsection Title</h2> -->
     <!-- <h3>Subsection Title</h3> -->
@@ -52,21 +57,22 @@
         let todoList = {
             // when setting value of property as below, don't end with a semicolon.
             todos: [],
-            displayTodos: function() {
-                // debugger;
-                if (this.todos.length === 0) {
-                    console.log('Your to-do list is empty!');
-                } else {
-                    console.log('My To-Dos:');
-                    for (let i = 0; i < this.todos.length; i++) {
-                        if (this.todos[i].completed === true) {
-                            console.log('(x)', this.todos[i].todoText);
-                        } else {
-                            console.log('( )', this.todos[i].todoText);
-                        }
-                    }
-                }
-            },
+            // DON'T NEED THIS ANYMORE SINCE WE'RE DOING IT IN THE DOM TO ESCAPE CONSOLE!
+            //displayTodos: function() {
+            //     // debugger;
+            //     if (this.todos.length === 0) {
+            //         console.log('Your to-do list is empty!');
+            //     } else {
+            //         console.log('My To-Dos:');
+            //         for (let i = 0; i < this.todos.length; i++) {
+            //             if (this.todos[i].completed === true) {
+            //                 console.log('(x)', this.todos[i].todoText);
+            //             } else {
+            //                 console.log('( )', this.todos[i].todoText);
+            //             }
+            //         }
+            //     }
+            // },
             //adding a todo item into the list and displaying it.
             addTodo: function(todoText) {
                 // debugger;
@@ -75,24 +81,24 @@
                     todoText: todoText,
                     completed: false
                 });
-                this.displayTodos();
+                // this.displayTodos();
             },
             changeTodo: function(position, todoText) {
                 // debugger;
                 // Below we are changing the todoText based on a position by passing in todoText.
                 this.todos[position].todoText = todoText;
-                this.displayTodos();
+                // this.displayTodos();
             },
             deleteTodo: function(position) {
                 // debugger;
                 this.todos.splice(position, 1);
-                this.displayTodos();
+                // this.displayTodos();
             },
             toggleCompleted: function(position) {
                 // debugger;
                 let todo = this.todos[position];
                 todo.completed = !todo.completed;
-                this.displayTodos();
+                // this.displayTodos();
             },
             toggleAll: function() {
                 // debugger;
@@ -115,12 +121,14 @@
                         this.todos[i].completed = true;
                     }
                 }
-                this.displayTodos();
+                // this.displayTodos();
             }
         };
+        
+        //ALL THE CODE BELOW WAS REFACTORED//
         // The code below gives us access to the display todos button.
         // let displayTodosButton = document.getElementById('displayTodosButton');
-
+        
         // The code eblow runs displayTodos method when user clicks displayTodosButton.
         // displayTodosButton.addEventListener('click', function() {
         //   todoList.displayTodos();
@@ -130,17 +138,20 @@
         // toggleAllButton.addEventListener('click', function() {
         //   todoList.toggleAll();
         // });
-
+        
         let handlers = {
-            displayTodos: function() {
-                todoList.displayTodos();
-            },
-
+        
+            // Got rid of this handler when we deleted the Display Todos button to escape the console!
+            // displayTodos: function() {
+            //     todoList.displayTodos();
+            // },
+        
             addTodo: function() {
                 let addTodoTextInput = document.getElementById('addTodoTextInput');
                 todoList.addTodo(addTodoTextInput.value);
                 addTodoTextInput.value = '';
                 //The line above is to clear the input after you type something in rather than having that text stay there.
+                view.displayTodos();
             },
             changeTodo: function() {
                 let changeTodoPositionInput = document.getElementById('changeTodoPositionInput');
@@ -149,23 +160,54 @@
                 //Above if we had used .value it would return a string, not number.
                 changeTodoTextInput.value = '';
                 changeTodoPositionInput = '';
+                view.displayTodos();
             },
             deleteTodo: function() {
                 let deleteTodoPositionInput = document.getElementById('deleteTodoPositionInput');
                 todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
                 deleteTodoPositionInput.value = '';
+                view.displayTodos();
             },
             toggleCompleted: function() {
                 let toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
                 todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
                 toggleCompletedPositionInput.value = '';
+                view.displayTodos();
             },
             toggleAll: function() {
                 todoList.toggleAll();
+                view.displayTodos();
             }
         };
-
-    </script>
+        //View doesn't do anything but render data to the screen.
+        let view = {
+            displayTodos: function() {
+                let todoUl = document.querySelector('ul');
+                todoUl.innerHTML = '';
+                //The above sets whatever html was created to clear so that view.displayTodos() doesn't keep adding bullets.
+                //Below creates a list item for each item in the todos array and then append it to the todos ul.
+                for (let i = 0; i < todoList.todos.length; i++) {
+                    let todoLi = document.createElement('li');
+                    let todo = todoList.todos[i];
+                    //Created variable above so we don't have to repeat code.
+                    let todoTextWithCompletion = '';
+                    
+                    if (todo.completed === true) {
+                        todoTextWithCompletion = '(x) ' + todo.todoText;
+                    } else {
+                        todoTextWithCompletion = '( ) ' + todo.todoText;
+                    }
+        
+                    todoLi.textContent = todoTextWithCompletion;
+                    //Below takes the todo li element, accessing the text content in the li, and setting it to the text property of each item.
+                    //Became unnecessary: todoLi.textContent = todoList.todos[i].todoText;
+                    todoUl.appendChild(todoLi);
+                }
+            }
+        }
+        
+        
+        </script>
 
 </body>
 
