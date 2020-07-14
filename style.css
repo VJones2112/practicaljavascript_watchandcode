@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Dancing+Script:wght@400;600&family=Open+Sans:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Cedarville Cursive', cursive;
+  /* font-family: 'Dancing Script', cursive; */
+  /* font-family: 'Open Sans', sans-serif; */
+  font-size: 16px;
+}
+
+body {
+  width: 800px;
+  margin: 0 auto;
+  /* background-color: #B8E0D2; */
+  background-color: #809BCE;
+}
+
+.todoListWrapper {
+  background-color: #95B8D1;
+  padding: 1rem;
+  /* text-align: center; */
+}
+
+h1 {
+  color: #EAC4D5;
+  font-size: 3rem;
+  text-shadow: 2px 2px #DFA5BF;
+}
+
+button {
+  background-color: #D6EADF;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #B8E0D2;
+  transition-duration: 0.4s;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  
+}
+
+button:hover {
+  background-color: #EAC4D5;
+  /* color: #95B8D1; */
+  border: 1px solid #EAC4D5;
+}
+
+input {
+  line-height: 1.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid #D6EADF;
+}
+
+#changeTodoPositionInput {
+  width: 3rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#toggleCompletedPositionInput {
+  width: 3rem;
+  font-size: 1rem;
+  text-align: center; 
+}
+
+ul {
+  list-style-type: none;
+  font-size: 1.3rem;
+  margin-right: 1rem;
+  padding-right: 1rem;
+}
